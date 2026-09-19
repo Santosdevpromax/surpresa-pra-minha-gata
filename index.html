@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uma Surpresa para Você ❤️</title>
+    <title>Para o Meu Amor ❤️</title>
     <style>
+        :root {
+            --primary: #7928ca;
+            --secondary: #00d4ff;
+            --accent: #ff007f;
+            --bg-dark: #07030d;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #0d0614, #050d1a, #1a0826);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(121, 40, 202, 0.25) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 212, 255, 0.2) 0px, transparent 50%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,126 +33,229 @@
             position: relative;
         }
 
-        /* Animação dos Corações de Fundo */
-        .heart-bg {
-            position: absolute;
-            top: -10vh;
-            color: #8a2be2;
-            font-size: 20px;
-            user-select: none;
+        /* Canvas de Fundo Interativo */
+        #interactive-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
             pointer-events: none;
-            animation: float 8s linear infinite;
-            opacity: 0.7;
-            text-shadow: 0 0 8px #00d4ff;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(115vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
+        /* Container Principal com Glassmorphism Neon */
         .container {
             width: 90%;
-            max-width: 550px;
-            padding: 30px;
-            background: rgba(15, 12, 29, 0.85);
-            border: 1px solid #7928ca;
-            box-shadow: 0 8px 32px 0 rgba(121, 40, 202, 0.37);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
+            max-width: 600px;
+            padding: 35px;
+            background: rgba(13, 8, 25, 0.75);
+            border: 1px solid rgba(121, 40, 202, 0.4);
+            box-shadow: 0 0 50px rgba(121, 40, 202, 0.25), inset 0 0 20px rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
             text-align: center;
             z-index: 10;
             margin: 20px 0;
+            position: relative;
         }
 
-        /* Botão Inicial */
+        /* Botão Surpresa com Efeito Neon Pulsante */
         .btn-surprise {
-            background: linear-gradient(45deg, #7928ca, #0070f3);
+            background: linear-gradient(135deg, var(--primary), #0070f3);
             color: white;
             border: none;
-            padding: 18px 32px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            padding: 20px 40px;
+            font-size: 1.25rem;
+            font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 0 15px #7928ca;
-            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(121, 40, 202, 0.6);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-surprise::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.15);
+            transform: rotate(45deg);
+            transition: 0.5s;
         }
 
         .btn-surprise:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px #00d4ff;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 35px var(--secondary);
         }
 
-        /* Tela do Conteúdo (Inicia escondida) */
+        .btn-surprise:hover::before {
+            left: 100%;
+        }
+
+        /* Tela de Conteúdo com Animação */
         #content-screen {
             display: none;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
         }
 
-        /* FOTO MAIOR AQUI */
+        #content-screen.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Foto do Casal com Brilho Neon */
         .photo-frame {
             width: 100%;
             height: 480px;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 3px solid #00d4ff;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3), 0 0 10px rgba(121, 40, 202, 0.5);
             margin-bottom: 25px;
+            position: relative;
         }
 
         .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.6s ease;
         }
 
+        .photo-frame:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Contador de Tempo */
+        .timer-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-num {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 8px var(--primary);
+        }
+
+        .timer-label {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        /* Texto da Carta */
         .love-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #e0e0e0;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: #ececec;
             margin-bottom: 25px;
             text-align: left;
             white-space: pre-line;
-            max-height: 280px;
+            max-height: 300px;
             overflow-y: auto;
-            padding-right: 10px;
+            padding-right: 12px;
         }
 
-        /* Barra de rolagem personalizada para o texto */
         .love-text::-webkit-scrollbar {
             width: 6px;
         }
-        .love-text::-webkit-scrollbar-thumb {
-            background: #7928ca;
+
+        .love-text::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
             border-radius: 10px;
+        }
+
+        .love-text::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        /* Player Customizado */
+        .music-player-wrapper {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50px;
+            border: 1px solid rgba(121, 40, 202, 0.5);
+            margin-bottom: 20px;
         }
 
         .music-player {
             width: 100%;
-            border-radius: 30px;
+            height: 40px;
             outline: none;
+        }
+
+        /* Botão Extra: Explosão de Corações */
+        .btn-hearts {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-hearts:hover {
+            background: var(--accent);
+            color: #white;
+            box-shadow: 0 0 15px var(--accent);
         }
     </style>
 </head>
 <body>
 
-    <!-- Tela 1: Botão Surpresa -->
+    <canvas id="interactive-canvas"></canvas>
+
+    <!-- TELA 1: BOTÃO SURPRESA -->
     <div class="container" id="initial-screen">
         <button class="btn-surprise" onclick="revelarSurpresa()">Se está curiosa, clica aqui ❤️</button>
     </div>
 
-    <!-- Tela 2: Conteúdo Principal -->
+    <!-- TELA 2: CONTEÚDO PRINCIPAL -->
     <div class="container" id="content-screen">
         <div class="photo-frame">
             <img src="oi.jpg" alt="Nossa Foto" id="foto-casal">
+        </div>
+
+        <!-- CONTADOR DE TEMPO (Ajuste a data de início abaixo no script) -->
+        <div class="timer-title">Construindo a nossa história há:</div>
+        <div class="timer-container">
+            <div class="timer-box"><span class="timer-num" id="days">00</span><span class="timer-label">Dias</span></div>
+            <div class="timer-box"><span class="timer-num" id="hours">00</span><span class="timer-label">Horas</span></div>
+            <div class="timer-box"><span class="timer-num" id="minutes">00</span><span class="timer-label">Min</span></div>
+            <div class="timer-box"><span class="timer-num" id="seconds">00</span><span class="timer-label">Seg</span></div>
         </div>
 
         <!-- SEU TEXTO PARA ELA -->
@@ -172,50 +285,147 @@ Eu amo você. Amo muito. E quanto mais tempo passa, mais eu percebo que não é 
 E se eu pudesse escolher de novo, sabendo tudo que sei hoje, eu ainda escolheria você. Mil vezes, em todos os momentos, em todos os dias. Porque amar você é uma das coisas mais fáceis e mais bonitas que eu já senti.
         </div>
 
-        <!-- PLAYER DE ÁUDIO COM A MÚSICA DE VOCÊS -->
-        <audio class="music-player" id="musica" controls autoplay loop>
-            <source src="musica.mp3.mp3" type="audio/mpeg">
-            Seu navegador não suporta áudio.
-        </audio>
+        <!-- PLAYER DE ÁUDIO -->
+        <div class="music-player-wrapper">
+            <audio class="music-player" id="musica" controls loop>
+                <source src="musica.mp3.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- BOTÃO INTERATIVO EXTRA -->
+        <button class="btn-hearts" onclick="chuvaDeCoracoes()">Enviar mais amor 💕</button>
     </div>
 
     <script>
+        // -------------------------------------------------------------
+        // CONFIGURAÇÃO DA DATA DE INÍCIO DO NAMORO (ANO, MÊS - 1, DIA)
+        // Exemplo: 2023, 0 (Janeiro = 0, Fevereiro = 1, etc.), 15
+        // -------------------------------------------------------------
+        const startDate = new Date(); 
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // REVELAR TELA COM TRANSIÇÃO
         function revelarSurpresa() {
             const initialScreen = document.getElementById('initial-screen');
             const contentScreen = document.getElementById('content-screen');
             const musica = document.getElementById('musica');
 
             initialScreen.style.display = 'none';
-            contentScreen.style.display = 'block';
-            
-            setTimeout(() => {
-                contentScreen.style.opacity = '1';
-            }, 50);
+            contentScreen.classList.add('active');
 
-            musica.play().catch(error => {
-                console.log("O áudio aguarda interação do usuário.");
-            });
+            musica.play().catch(e => console.log("Áudio aguarda interação"));
+            chuvaDeCoracoes();
         }
 
-        function createHeart() {
+        // CHUVA DE CORAÇÕES INTERATIVA
+        function chuvaDeCoracoes() {
+            for(let i = 0; i < 25; i++) {
+                setTimeout(createFloatingHeart, i * 80);
+            }
+        }
+
+        function createFloatingHeart() {
             const heart = document.createElement('div');
-            heart.classList.add('heart-bg');
-            
-            const hearts = ['💙', '💜', '🖤', '✨'];
-            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-            
+            heart.innerHTML = ['💙', '💜', '🖤', '✨', '💖'][Math.floor(Math.random() * 5)];
+            heart.style.position = 'fixed';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 5 + 's';
-            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            heart.style.bottom = '-20px';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.zIndex = '999';
+            heart.style.pointerEvents = 'none';
+            heart.style.transition = 'all 4s linear';
             
             document.body.appendChild(heart);
 
             setTimeout(() => {
-                heart.remove();
-            }, 8000);
+                heart.style.transform = `translateY(-110vh) rotate(${Math.random() * 360}deg)`;
+                heart.style.opacity = '0';
+            }, 50);
+
+            setTimeout(() => heart.remove(), 4000);
         }
 
-        setInterval(createHeart, 300);
+        // CANVAS INTERATIVO COM RASTRO DE PARTÍCULAS
+        const canvas = document.getElementById('interactive-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsl(${Math.random() * 60 + 260}, 100%, 70%)`;
+                this.alpha = 1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= 0.015;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function handleParticles(e) {
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            const y = e.touches ? e.touches[0].clientY : e.clientY;
+            for (let i = 0; i < 2; i++) {
+                particles.push(new Particle(x, y));
+            }
+        }
+
+        window.addEventListener('mousemove', handleParticles);
+        window.addEventListener('touchmove', handleParticles);
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
     </script>
 </body>
 </html>
