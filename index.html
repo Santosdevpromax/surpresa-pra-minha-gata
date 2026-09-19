@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uma Surpresa para Você ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0d0614, #050d1a, #1a0826);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animação dos Corações de Fundo */
+        .heart-bg {
+            position: absolute;
+            top: -10vh;
+            color: #8a2be2;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: float 8s linear infinite;
+            opacity: 0.7;
+            text-shadow: 0 0 8px #00d4ff;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(115vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 550px;
+            padding: 30px;
+            background: rgba(15, 12, 29, 0.85);
+            border: 1px solid #7928ca;
+            box-shadow: 0 8px 32px 0 rgba(121, 40, 202, 0.37);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            text-align: center;
+            z-index: 10;
+            margin: 20px 0;
+        }
+
+        /* Botão Inicial */
+        .btn-surprise {
+            background: linear-gradient(45deg, #7928ca, #0070f3);
+            color: white;
+            border: none;
+            padding: 18px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #7928ca;
+            transition: all 0.3s ease;
+        }
+
+        .btn-surprise:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #00d4ff;
+        }
+
+        /* Tela do Conteúdo (Inicia escondida) */
+        #content-screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* FOTO MAIOR AQUI */
+        .photo-frame {
+            width: 100%;
+            height: 480px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid #00d4ff;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+            margin-bottom: 25px;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .love-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 25px;
+            text-align: left;
+            white-space: pre-line;
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* Barra de rolagem personalizada para o texto */
+        .love-text::-webkit-scrollbar {
+            width: 6px;
+        }
+        .love-text::-webkit-scrollbar-thumb {
+            background: #7928ca;
+            border-radius: 10px;
+        }
+
+        .music-player {
+            width: 100%;
+            border-radius: 30px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tela 1: Botão Surpresa -->
+    <div class="container" id="initial-screen">
+        <button class="btn-surprise" onclick="revelarSurpresa()">Se está curiosa, clica aqui ❤️</button>
+    </div>
+
+    <!-- Tela 2: Conteúdo Principal -->
+    <div class="container" id="content-screen">
+        <div class="photo-frame">
+            <img src="oi.jpg" alt="Nossa Foto" id="foto-casal">
+        </div>
+
+        <!-- SEU TEXTO PARA ELA -->
+        <div class="love-text">
+Eu acho que uma das coisas mais bonitas que aconteceram comigo foi perceber o quanto é fácil te amar. Não porque amar você seja algo pequeno ou simples, mas porque você faz com que isso aconteça naturalmente. Eu não preciso pensar em motivos pra te amar, eles aparecem o tempo todo, nos seus detalhes, no seu jeito, nas suas palavras, nas suas manias e até nas pequenas coisas que talvez você nem perceba.
+
+Eu amo você de um jeito que vai muito além de gostar de estar com você. Eu amo a paz que sinto quando estou perto de você, amo poder dividir meus dias com você, contar as coisas que acontecem comigo, rir das coisas mais idiotas e simplesmente saber que, no final de tudo, eu tenho você. É como se a vida ficasse um pouco mais leve quando você está comigo.
+
+Você consegue transformar momentos comuns em momentos que eu quero guardar pra sempre. Às vezes nem está acontecendo nada demais, mas só de estar conversando com você, olhando pra você ou passando um tempo do seu lado, já faz aquele momento valer a pena. E talvez seja isso que mais me faça amar você, porque eu não preciso de nada grandioso pra ser feliz com você. A sua presença já é suficiente.
+
+Eu amo cada versão sua. Amo quando você está feliz, quando está animada, quando começa a falar de alguma coisa que gosta e fica toda empolgada. Amo suas manias, seus jeitos, suas brincadeiras e até aquelas pequenas coisas que às vezes me tiram do sério, porque tudo isso faz parte da pessoa que eu escolhi amar.
+
+E eu quero que você saiba que eu vou sempre fazer o possível por nós. Não prometo que tudo vai ser perfeito, porque eu sei que não vai. A gente vai errar, vai discordar, vai ter dias difíceis e momentos em que talvez nenhum dos dois saiba exatamente o que fazer. Mas mesmo nesses momentos, eu quero continuar escolhendo você. Quero aprender com você, crescer com você e fazer o que estiver ao meu alcance para que a gente fique bem.
+
+Eu quero estar do seu lado quando você estiver feliz e também quando não estiver. Quero ser a pessoa que você sabe que pode procurar quando precisar. Quero comemorar suas conquistas como se fossem minhas, te apoiar quando alguma coisa der errado e fazer você lembrar que não precisa enfrentar tudo sozinha.
+
+Eu faria muita coisa por você, não porque eu espere alguma coisa em troca, mas porque ver você bem também me faz bem. Eu quero cuidar de você, te proteger dentro do que eu puder, te ouvir, te apoiar e te lembrar todos os dias do quanto você é importante pra mim.
+
+Você mudou muita coisa dentro de mim sem nem precisar tentar. Me fez enxergar que existe uma felicidade muito diferente em simplesmente ter alguém que você ama ao seu lado. E eu sou muito grato por poder viver isso com você.
+
+Se um dia você esquecer o quanto é amada, eu quero estar aqui pra te lembrar. Se algum dia você duvidar de si mesma, eu quero estar aqui pra te lembrar de tudo que existe de incrível em você. E se algum dia a vida ficar pesada, eu quero que você saiba que pode olhar pro lado e me encontrar ali, tentando fazer o possível pra tornar tudo um pouco mais leve.
+
+Eu não sei exatamente o que o futuro vai colocar no nosso caminho, mas sei que, enquanto depender de mim, eu vou fazer de tudo para cuidar do que a gente tem. Porque eu não quero simplesmente ter você na minha vida, eu quero continuar construindo uma vida onde você faça parte dos meus melhores momentos.
+
+Eu amo você. Amo muito. E quanto mais tempo passa, mais eu percebo que não é um amor que diminui ou se acostuma. É o contrário. É um amor que cresce, que encontra novos motivos todos os dias e que me faz ter cada vez mais certeza de que ter você comigo é uma das coisas mais bonitas que eu poderia ter vivido.
+
+E se eu pudesse escolher de novo, sabendo tudo que sei hoje, eu ainda escolheria você. Mil vezes, em todos os momentos, em todos os dias. Porque amar você é uma das coisas mais fáceis e mais bonitas que eu já senti.
+        </div>
+
+        <!-- PLAYER DE ÁUDIO COM A MÚSICA DE VOCÊS -->
+        <audio class="music-player" id="musica" controls autoplay loop>
+            <source src="musica.mp3.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <script>
+        function revelarSurpresa() {
+            const initialScreen = document.getElementById('initial-screen');
+            const contentScreen = document.getElementById('content-screen');
+            const musica = document.getElementById('musica');
+
+            initialScreen.style.display = 'none';
+            contentScreen.style.display = 'block';
+            
+            setTimeout(() => {
+                contentScreen.style.opacity = '1';
+            }, 50);
+
+            musica.play().catch(error => {
+                console.log("O áudio aguarda interação do usuário.");
+            });
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            
+            const hearts = ['💙', '💜', '🖤', '✨'];
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
