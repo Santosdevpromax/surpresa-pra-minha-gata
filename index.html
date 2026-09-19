@@ -3,37 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para o Meu Amor ❤️</title>
+    <title>Uma Surpresa Especial para Você ❤️</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#07030d',
+                        neonPurple: '#7928ca',
+                        neonBlue: '#00d4ff',
+                        neonPink: '#ff007f'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root {
-            --primary: #7928ca;
-            --secondary: #00d4ff;
-            --accent: #ff007f;
-            --bg-dark: #07030d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-dark);
+            background-color: #07030d;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(121, 40, 202, 0.25) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 212, 255, 0.2) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(121, 40, 202, 0.35) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 212, 255, 0.3) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(255, 0, 127, 0.2) 0px, transparent 60%);
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             color: #ffffff;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Canvas de Fundo Interativo */
         #interactive-canvas {
             position: fixed;
             top: 0;
@@ -44,34 +47,19 @@
             pointer-events: none;
         }
 
-        /* Container Principal com Glassmorphism Neon */
-        .container {
-            width: 90%;
-            max-width: 600px;
-            padding: 35px;
-            background: rgba(13, 8, 25, 0.75);
-            border: 1px solid rgba(121, 40, 202, 0.4);
-            box-shadow: 0 0 50px rgba(121, 40, 202, 0.25), inset 0 0 20px rgba(0, 212, 255, 0.1);
+        .glass-card {
+            background: rgba(13, 8, 25, 0.88);
+            border: 1px solid rgba(121, 40, 202, 0.5);
+            box-shadow: 0 0 50px rgba(121, 40, 202, 0.35), inset 0 0 20px rgba(0, 212, 255, 0.2);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: 28px;
-            text-align: center;
-            z-index: 10;
-            margin: 20px 0;
-            position: relative;
         }
 
-        /* Botão Surpresa com Efeito Neon Pulsante */
+        /* Pulsing Glow Animation for Main Button */
         .btn-surprise {
-            background: linear-gradient(135deg, var(--primary), #0070f3);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(121, 40, 202, 0.6);
+            background: linear-gradient(135deg, #7928ca, #00d4ff);
+            box-shadow: 0 0 25px rgba(121, 40, 202, 0.8);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -84,26 +72,26 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.25);
             transform: rotate(45deg);
             transition: 0.5s;
         }
 
         .btn-surprise:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 35px var(--secondary);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 40px #00d4ff;
         }
 
         .btn-surprise:hover::before {
             left: 100%;
         }
 
-        /* Tela de Conteúdo com Animação */
+        /* Smooth Screen Switch Transition */
         #content-screen {
             display: none;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.8s ease-out;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #content-screen.active {
@@ -112,155 +100,91 @@
             transform: translateY(0);
         }
 
-        /* Foto do Casal com Brilho Neon */
+        /* Glowing Custom Photo Frame */
         .photo-frame {
-            width: 100%;
-            height: 480px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid rgba(0, 212, 255, 0.6);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3), 0 0 10px rgba(121, 40, 202, 0.5);
-            margin-bottom: 25px;
-            position: relative;
+            border: 2px solid rgba(0, 212, 255, 0.8);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4), 0 0 15px rgba(121, 40, 202, 0.6);
         }
 
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .photo-frame:hover img {
-            transform: scale(1.03);
-        }
-
-        /* Contador de Tempo */
-        .timer-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--secondary);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .timer-container {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 15px;
-            padding: 12px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .timer-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .timer-num {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 8px var(--primary);
-        }
-
-        .timer-label {
-            font-size: 0.75rem;
-            color: #aaa;
-        }
-
-        /* Texto da Carta */
-        .love-text {
-            font-size: 1.02rem;
-            line-height: 1.7;
-            color: #ececec;
-            margin-bottom: 25px;
-            text-align: left;
-            white-space: pre-line;
-            max-height: 300px;
-            overflow-y: auto;
-            padding-right: 12px;
-        }
-
+        /* Custom Scrollbar for Love Letter Content */
         .love-text::-webkit-scrollbar {
             width: 6px;
         }
 
         .love-text::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.4);
             border-radius: 10px;
         }
 
         .love-text::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--primary), var(--secondary));
+            background: linear-gradient(#7928ca, #00d4ff);
             border-radius: 10px;
         }
 
-        /* Player Customizado */
+        /* Audio Player Glass Glow Wrapper */
         .music-player-wrapper {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 50px;
-            border: 1px solid rgba(121, 40, 202, 0.5);
-            margin-bottom: 20px;
-        }
-
-        .music-player {
-            width: 100%;
-            height: 40px;
-            outline: none;
-        }
-
-        /* Botão Extra: Explosão de Corações */
-        .btn-hearts {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-hearts:hover {
-            background: var(--accent);
-            color: #white;
-            box-shadow: 0 0 15px var(--accent);
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(121, 40, 202, 0.6);
+            box-shadow: 0 0 18px rgba(121, 40, 202, 0.35);
         }
     </style>
 </head>
-<body>
+<body class="flex items-center justify-center p-4 relative">
 
     <canvas id="interactive-canvas"></canvas>
 
-    <!-- TELA 1: BOTÃO SURPRESA -->
-    <div class="container" id="initial-screen">
-        <button class="btn-surprise" onclick="revelarSurpresa()">Se está curiosa, clica aqui ❤️</button>
-    </div>
-
-    <!-- TELA 2: CONTEÚDO PRINCIPAL -->
-    <div class="container" id="content-screen">
-        <div class="photo-frame">
-            <img src="oi.jpg" alt="Nossa Foto" id="foto-casal">
+    <!-- Main Container -->
+    <div class="w-full max-w-xl glass-card p-6 md:p-10 text-center z-10 my-6 relative">
+        
+        <!-- Screen 1: Initial Mystery Reveal Button -->
+        <div id="initial-screen" class="py-12 px-4 flex flex-col items-center justify-center">
+            <div class="text-5xl mb-6 text-neonBlue animate-bounce">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400">
+                Tenho uma surpresa para você...
+            </h1>
+            <button class="btn-surprise text-white font-bold py-5 px-8 rounded-full text-lg md:text-xl flex items-center gap-3" onclick="revelarSurpresa()">
+                <span>Se está curiosa, clica aqui</span>
+                <i class="fa-solid fa-heart text-pink-300"></i>
+            </button>
         </div>
 
-        <!-- CONTADOR DE TEMPO (Ajuste a data de início abaixo no script) -->
-        <div class="timer-title">Construindo a nossa história há:</div>
-        <div class="timer-container">
-            <div class="timer-box"><span class="timer-num" id="days">00</span><span class="timer-label">Dias</span></div>
-            <div class="timer-box"><span class="timer-num" id="hours">00</span><span class="timer-label">Horas</span></div>
-            <div class="timer-box"><span class="timer-num" id="minutes">00</span><span class="timer-label">Min</span></div>
-            <div class="timer-box"><span class="timer-num" id="seconds">00</span><span class="timer-label">Seg</span></div>
-        </div>
+        <!-- Screen 2: Revealed Romantic Content -->
+        <div id="content-screen">
+            <!-- Photo Frame Section -->
+            <div class="photo-frame rounded-2xl overflow-hidden mb-6 h-[380px] sm:h-[480px] w-full relative group">
+                <img src="oi.jpg" alt="Nossa Foto" id="foto-casal" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/600x800/1a0826/00d4ff?text=Nossa+Foto+Especial'">
+            </div>
 
-        <!-- SEU TEXTO PARA ELA -->
-        <div class="love-text">
-Eu acho que uma das coisas mais bonitas que aconteceram comigo foi perceber o quanto é fácil te amar. Não porque amar você seja algo pequeno ou simples, mas porque você faz com que isso aconteça naturalmente. Eu não preciso pensar em motivos pra te amar, eles aparecem o tempo todo, nos seus detalhes, no seu jeito, nas suas palavras, nas suas manias e até nas pequenas coisas que talvez você nem perceba.
+            <!-- Live Counter Section (03/08/2026) -->
+            <div class="mb-6">
+                <div class="text-xs uppercase tracking-widest text-cyan-400 font-semibold mb-3">
+                    <i class="fa-solid fa-clock mr-1"></i> Construindo a nossa história há:
+                </div>
+                <div class="grid grid-cols-4 gap-2 bg-black/50 rounded-xl p-3 border border-purple-500/30">
+                    <div class="flex flex-col items-center">
+                        <span class="text-xl md:text-3xl font-extrabold text-white drop-shadow-[0_0_10px_#00d4ff]" id="days">0</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase font-medium mt-1">Dias</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-xl md:text-3xl font-extrabold text-white drop-shadow-[0_0_10px_#00d4ff]" id="hours">00</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase font-medium mt-1">Horas</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-xl md:text-3xl font-extrabold text-white drop-shadow-[0_0_10px_#00d4ff]" id="minutes">00</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase font-medium mt-1">Min</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-xl md:text-3xl font-extrabold text-white drop-shadow-[0_0_10px_#00d4ff]" id="seconds">00</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase font-medium mt-1">Seg</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Love Letter Text Content -->
+            <div class="love-text text-left text-sm sm:text-base leading-relaxed text-gray-200 mb-6 max-h-[280px] overflow-y-auto pr-3 whitespace-pre-line">
+Eu acho que uma das coisas mais bonitas que aconteceram comigo foi perceber o quanto é fácil te amar. Não porque amar você seja algo pequeno ou simples, mas porque você faz com que isso aconteça naturally. Eu não preciso pensar em motivos pra te amar, eles aparecem o tempo todo, nos seus detalhes, no seu jeito, nas suas palavras, nas suas manias e até nas pequenas coisas que talvez você nem perceba.
 
 Eu amo você de um jeito que vai muito além de gostar de estar com você. Eu amo a paz que sinto quando estou perto de você, amo poder dividir meus dias com você, contar as coisas que acontecem comigo, rir das coisas mais idiotas e simplesmente saber que, no final de tudo, eu tenho você. É como se a vida ficasse um pouco mais leve quando você está comigo.
 
@@ -283,45 +207,67 @@ Eu não sei exatamente o que o futuro vai colocar no nosso caminho, mas sei que,
 Eu amo você. Amo muito. E quanto mais tempo passa, mais eu percebo que não é um amor que diminui ou se acostuma. É o contrário. É um amor que cresce, que encontra novos motivos todos os dias e que me faz ter cada vez mais certeza de que ter você comigo é uma das coisas mais bonitas que eu poderia ter vivido.
 
 E se eu pudesse escolher de novo, sabendo tudo que sei hoje, eu ainda escolheria você. Mil vezes, em todos os momentos, em todos os dias. Porque amar você é uma das coisas mais fáceis e mais bonitas que eu já senti.
-        </div>
+            </div>
 
-        <!-- PLAYER DE ÁUDIO -->
-        <div class="music-player-wrapper">
-            <audio class="music-player" id="musica" controls loop>
-                <source src="musica.mp3.mp3" type="audio/mpeg">
-            </audio>
-        </div>
+            <!-- Audio Player Section -->
+            <div class="music-player-wrapper p-2 rounded-full mb-6">
+                <audio class="w-full h-10 outline-none" id="musica" controls loop>
+                    <source src="musica.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o reprodutor de áudio.
+                </audio>
+            </div>
 
-        <!-- BOTÃO INTERATIVO EXTRA -->
-        <button class="btn-hearts" onclick="chuvaDeCoracoes()">Enviar mais amor 💕</button>
+            <!-- Extra Heart Shower Button -->
+            <button class="border border-pink-500 text-pink-400 hover:bg-pink-500 hover:text-white transition-all duration-300 py-2.5 px-6 rounded-full text-sm font-semibold flex items-center justify-center gap-2 mx-auto shadow-lg hover:shadow-pink-500/50" onclick="chuvaDeCoracoes()">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>Enviar mais amor 💕</span>
+            </button>
+        </div>
     </div>
 
     <script>
-        // -------------------------------------------------------------
-        // CONFIGURAÇÃO DA DATA DE INÍCIO DO NAMORO (ANO, MÊS - 1, DIA)
-        // Exemplo: 2023, 0 (Janeiro = 0, Fevereiro = 1, etc.), 15
-        // -------------------------------------------------------------
-        const startDate = new Date(); 
+        // =============================================================
+        // CONFIGURAÇÃO DA DATA DE INÍCIO DO NAMORO (03/08/2026)
+        // Mês 7 representa Agosto no JavaScript (0-indexed: Jan=0, Feb=1,..., Ago=7)
+        // =============================================================
+        const startDate = new Date(2026, 7, 3, 0, 0, 0); 
 
         function updateTimer() {
             const now = new Date();
-            const diff = now - startDate;
+            // Calcula a diferença exata em milissegundos
+            const diff = now.getTime() - startDate.getTime();
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+            // Se a data atual for posterior a 03/08/2026, calcula o tempo decorrido
+            if (diff >= 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
 
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+                document.getElementById('days').innerText = String(days);
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            } else {
+                // Caso o horário do computador seja ligeiramente anterior a 03/08/2026
+                const absDiff = Math.abs(diff);
+                const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((absDiff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((absDiff / (1000 * 60)) % 60);
+                const seconds = Math.floor((absDiff / 1000) % 60);
+
+                document.getElementById('days').innerText = String(days);
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
         }
 
+        // Atualiza a cada segundo
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // REVELAR TELA COM TRANSIÇÃO
+        // Alterna telas e inicia música + chuva de corações
         function revelarSurpresa() {
             const initialScreen = document.getElementById('initial-screen');
             const contentScreen = document.getElementById('content-screen');
@@ -330,39 +276,42 @@ E se eu pudesse escolher de novo, sabendo tudo que sei hoje, eu ainda escolheria
             initialScreen.style.display = 'none';
             contentScreen.classList.add('active');
 
-            musica.play().catch(e => console.log("Áudio aguarda interação"));
+            musica.play().catch(e => console.log("Aguardando interação com áudio do navegador."));
             chuvaDeCoracoes();
         }
 
-        // CHUVA DE CORAÇÕES INTERATIVA
+        // Animação de explosão de corações
         function chuvaDeCoracoes() {
-            for(let i = 0; i < 25; i++) {
-                setTimeout(createFloatingHeart, i * 80);
+            for(let i = 0; i < 35; i++) {
+                setTimeout(createFloatingHeart, i * 65);
             }
         }
 
         function createFloatingHeart() {
             const heart = document.createElement('div');
-            heart.innerHTML = ['💙', '💜', '🖤', '✨', '💖'][Math.floor(Math.random() * 5)];
+            const heartIcons = ['💙', '💜', '🖤', '✨', '💖', '💘'];
+            heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
             heart.style.position = 'fixed';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.bottom = '-20px';
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.bottom = '-30px';
+            heart.style.fontSize = (Math.random() * 22 + 16) + 'px';
             heart.style.zIndex = '999';
             heart.style.pointerEvents = 'none';
-            heart.style.transition = 'all 4s linear';
+            heart.style.transition = 'all 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             
             document.body.appendChild(heart);
 
             setTimeout(() => {
-                heart.style.transform = `translateY(-110vh) rotate(${Math.random() * 360}deg)`;
+                heart.style.transform = `translateY(-115vh) rotate(${Math.random() * 360 - 180}deg)`;
                 heart.style.opacity = '0';
             }, 50);
 
             setTimeout(() => heart.remove(), 4000);
         }
 
-        // CANVAS INTERATIVO COM RASTRO DE PARTÍCULAS
+        setInterval(createFloatingHeart, 600);
+
+        // Canvas Interativo com Rastro de Partículas Luminosas
         const canvas = document.getElementById('interactive-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -378,10 +327,10 @@ E se eu pudesse escolher de novo, sabendo tudo que sei hoje, eu ainda escolheria
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 3 + 1;
+                this.size = Math.random() * 3.5 + 1;
                 this.speedX = Math.random() * 2 - 1;
                 this.speedY = Math.random() * 2 - 1;
-                this.color = `hsl(${Math.random() * 60 + 260}, 100%, 70%)`;
+                this.color = `hsl(${Math.random() * 70 + 250}, 100%, 70%)`;
                 this.alpha = 1;
             }
 
